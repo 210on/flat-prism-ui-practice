@@ -1,187 +1,72 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flat Prism UI Practice — UI State Catalog</title><style>
-/* Flat Prism UI Practice v1.0 — scope every component inside .prism-ui.
-   Font sizes are relative; px is reserved for thin borders and focus outlines. */
-@property --prism-loader-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-.prism-ui {
-  color-scheme: light;
-  --prism-bg: #f6f7f9; --prism-ink: #1c2430; --prism-muted: #465264;
-  --prism-line: #c7ced8; --prism-surface: rgb(255 255 255 / .7);
-  --prism-hover: #eceff3; --prism-pressed: #dfe4eb; --prism-focus: #3b4658;
-  --prism-placeholder: #657182;
-  --prism-primary: #1c2430; --prism-primary-ink: #fff;
-  --prism-primary-hover: #2c3745; --prism-primary-pressed: #121821;
-  --prism-error: #a32f42; --prism-success: #28684e;
-  --prism-spectrum: linear-gradient(110deg,#50bfbd,#6da6ed 18%,#9b83e4 36%,#d385c0 52%,#e99e8a 68%,#dcc879 84%,#83c4a8);
-  --prism-text-spectrum: linear-gradient(110deg,#1a8f92,#4779c1 22%,#875fbd 44%,#b55293 65%,#b86c45 83%,#578e69);
-  --prism-link-spectrum: linear-gradient(110deg,#177b80,#365da7 22%,#7352a4 44%,#a03976 65%,#9c593a 83%,#487955);
-  --prism-wheel: conic-gradient(#d385a4,#e5af7f 60deg,#9dc47d 120deg,#50bfbd 180deg,#6da6ed 240deg,#9b83e4 300deg,#d385a4);
-  --prism-fade: 450ms; --prism-shimmer: 1200ms; --prism-tab-time: 500ms;
-  --prism-loader-size: 1.1em; --prism-loader-thickness: .15em; --prism-loader-arc: 55deg;
-  --prism-font: system-ui,-apple-system,'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;
-  font: 400 clamp(.875rem,.84rem + .15vw,1rem)/1.7 var(--prism-font);
-  color: var(--prism-ink);
-}
-.prism-ui[data-theme='dark'] {
-  color-scheme: dark; --prism-bg:#14161a; --prism-ink:#edf0f5; --prism-muted:#b4bdca;
-  --prism-line:#414957; --prism-surface:rgb(255 255 255 / .05); --prism-hover:#2b3039;
-  --prism-pressed:#414956; --prism-focus:#d5deef; --prism-error:#f29aac; --prism-success:#96d2ba;
-  --prism-placeholder:#9aa5b2;
-  --prism-primary:#edf0f5; --prism-primary-ink:#14161a;
-  --prism-primary-hover:#fff; --prism-primary-pressed:#d6dde7;
-  --prism-spectrum:linear-gradient(110deg,#80e0d0,#92baff 18%,#b59af5 36%,#eda3d8 52%,#ffc1a4 68%,#ebdc96 84%,#9bddb4);
-  --prism-text-spectrum:linear-gradient(110deg,#8be6df,#b2caff 22%,#ccb4fb 44%,#f3b5df 65%,#f6c09f 83%,#b9ddb5);
-  --prism-link-spectrum:var(--prism-text-spectrum);
-}
-.prism-ui *, .prism-ui *::before, .prism-ui *::after { box-sizing:border-box; }
-/* Type: explicit color avoids host heading/label styles leaking into light mode. */
-.prism-ui :is(h1,h2,h3,h4) {color:var(--prism-ink);font-family:var(--prism-font);font-weight:500;letter-spacing:0;margin:0;}
-.prism-ui h1 {font-size:clamp(1.75rem,1.2rem + 2vw,2.5rem);line-height:1.4;}
-.prism-ui h2 {font-size:clamp(1.375rem,1.05rem + 1.2vw,1.875rem);line-height:1.45;}
-.prism-ui h3 {font-size:clamp(1.125rem,1rem + .55vw,1.375rem);line-height:1.5;}
-.prism-ui h4 {font-size:clamp(1rem,.94rem + .25vw,1.125rem);line-height:1.6;}
-.prism-ui .prism-muted {color:var(--prism-muted);}
-.prism-ui .prism-small {font-size:.8rem;line-height:1.7;color:var(--prism-muted);}
-.prism-ui .prism-lead {font-size:clamp(1.0625rem,1rem + .3vw,1.25rem);line-height:1.75;color:var(--prism-ink);}
-.prism-ui a.prism-link {color:var(--prism-ink);text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.2em;background-image:var(--prism-spectrum);background-repeat:no-repeat;background-size:220% 2px;background-position:0% 100%;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
-.prism-ui a.prism-link [data-prism-link-icon] {display:inline-block;margin-left:.15em;color:var(--prism-ink);}
-@supports (background-clip:text) or (-webkit-background-clip:text) {
-  .prism-ui a.prism-link [data-prism-link-icon] {color:transparent;background-image:var(--prism-link-spectrum);background-repeat:no-repeat;background-size:220% 100%;background-position:0% 50%;background-clip:text;-webkit-background-clip:text;}
-}
-.prism-ui a.prism-link:is(:hover,:focus-visible) {animation:prism-link-underline 1100ms ease-in-out both;}
-.prism-ui a.prism-link:is(:hover,:focus-visible) [data-prism-link-icon] {animation:prism-link-icon 1100ms ease-in-out both;}
-@keyframes prism-link-underline {0% {background-position:0% 100%;}50% {background-position:100% 100%;}100% {background-position:35% 100%;}}
-@keyframes prism-link-icon {0% {background-position:0% 50%;}50% {background-position:100% 50%;}100% {background-position:35% 50%;}}
-.prism-ui .prism-error {color:var(--prism-error);}
-.prism-ui .prism-success {color:var(--prism-success);}
-/* Shared surface — no shadows or directional edge reflections. */
-.prism-ui .prism-surface {background:var(--prism-surface);border:1px solid var(--prism-line);border-radius:1.375rem;backdrop-filter:blur(.75rem);-webkit-backdrop-filter:blur(.75rem);padding:1.25rem;}
-.prism-ui .prism-button {position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:2.75rem;padding:.5625rem 1.0625rem;border:1px solid var(--prism-line);border-radius:999px;background:var(--prism-surface);color:var(--prism-ink);font:500 clamp(.875rem,.84rem + .15vw,1rem)/1.6 var(--prism-font);cursor:pointer;transition:background-color 180ms,color 180ms;}
-.prism-ui .prism-button:hover:not(:disabled):not([aria-disabled='true']) {background:var(--prism-hover);}
-.prism-ui .prism-button:active:not(:disabled):not([aria-disabled='true']) {background:var(--prism-pressed);}
-.prism-ui .prism-button-primary {background:var(--prism-primary);border-color:var(--prism-primary);color:var(--prism-primary-ink);font-weight:600;}
-.prism-ui .prism-button-primary:hover:not(:disabled):not([aria-disabled='true']) {background:var(--prism-primary-hover);}
-.prism-ui .prism-button-primary:active:not(:disabled):not([aria-disabled='true']) {background:var(--prism-primary-pressed);}
-.prism-ui .prism-button::before {content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:var(--prism-spectrum);background-size:150% 100%;pointer-events:none;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity var(--prism-fade) ease;}
-.prism-ui .prism-button::after {content:'';position:absolute;inset:0;border-radius:inherit;background:var(--prism-spectrum);background-size:150% 100%;opacity:0;z-index:-1;pointer-events:none;transition:opacity var(--prism-fade) ease;}
-.prism-ui .prism-button:is([aria-pressed='true'],.prism-flash,.prism-save-complete)::before {opacity:1;}
-.prism-ui .prism-button.prism-flash::after {opacity:.18;}
-.prism-ui .prism-button-icon {min-width:2.75rem;padding-inline:.8125rem;}
-.prism-ui .prism-button-icon[aria-pressed='true']::after {opacity:.18;}
-.prism-ui .prism-button-icon[aria-pressed='true'] svg {fill:currentColor;}
-.prism-ui .prism-button-icon [data-prism-icon-on] {display:none;}
-.prism-ui .prism-button-icon[aria-pressed='true'] [data-prism-icon-off] {display:none;}
-.prism-ui .prism-button-icon[aria-pressed='true'] [data-prism-icon-on] {display:inline;}
-.prism-ui .prism-button-ghost {border-color:transparent;background:transparent;padding-inline:.5rem;}
-.prism-ui .prism-button-ghost::before {content:none;}
-.prism-ui .prism-button-ghost.prism-flash {background:var(--prism-surface);}
-.prism-ui .prism-button:disabled {opacity:.58;cursor:default;}
-.prism-ui .prism-button[aria-disabled='true'] {cursor:default;}
-.prism-ui .prism-button svg {width:1em;height:1em;flex:none;}
-.prism-ui .prism-button [data-prism-check] {width:1em;flex:none;}
-.prism-ui .prism-button[aria-pressed='false'] [data-prism-check] {visibility:hidden;}
-.prism-ui :is(button,a.prism-button,a.prism-link,.prism-switch):focus-visible {outline:2px solid var(--prism-focus);outline-offset:4px;}
-/* Inputs keep one ordinary focus border. Invalid + focus preserves both meanings. */
-.prism-ui .prism-label {display:block;color:var(--prism-ink);font-weight:500;margin-bottom:.4375rem;}
-.prism-ui .prism-input {width:100%;min-height:2.875rem;border:2px solid var(--prism-line);border-radius:1.125rem;background:var(--prism-surface);padding:.625rem .8125rem;color:var(--prism-ink);font:400 1rem/1.5 var(--prism-font);}
-.prism-ui .prism-input::placeholder {color:var(--prism-placeholder);opacity:1;}
-.prism-ui .prism-input:focus {border-color:var(--prism-focus);outline:none;}
-.prism-ui .prism-input[aria-invalid='true'] {border-color:var(--prism-error);}
-.prism-ui .prism-input[aria-invalid='true']:focus {outline:2px solid var(--prism-focus);outline-offset:3px;}
-.prism-ui .prism-input:disabled {background:var(--prism-hover);border-style:dashed;color:var(--prism-muted);cursor:not-allowed;}
-.prism-ui .prism-input[readonly] {border:0;border-bottom:2px solid var(--prism-line);border-radius:0;background:transparent;padding-inline:.125rem;}
-.prism-ui .prism-input[readonly]:focus {border-bottom-color:var(--prism-focus);}
-/* Switch uses native checkbox semantics; color lives on track, not thumb. */
-.prism-ui .prism-switch {appearance:none;position:relative;flex:none;width:2.75rem;height:1.625rem;margin:0;border:1px solid var(--prism-line);border-radius:999px;background:var(--prism-hover);cursor:pointer;}
-.prism-ui .prism-switch::before {content:'';position:absolute;inset:0;border-radius:inherit;background:var(--prism-spectrum);background-size:150% 100%;opacity:0;transition:opacity var(--prism-fade) ease;}
-.prism-ui .prism-switch:checked::before {opacity:1;}
-.prism-ui .prism-switch::after {content:'';position:absolute;left:.1875rem;top:.1875rem;width:1.125rem;height:1.125rem;border-radius:50%;background:#fff;border:1px solid #d0d5dd;transition:transform 160ms ease;}
-.prism-ui .prism-switch:checked::after {transform:translateX(1.125rem);}
-.prism-ui .prism-switch:disabled {opacity:.58;cursor:default;}
-/* Tabs use one moving indicator. JS owns geometry, semantic selection and keyboard. */
-.prism-ui .prism-tabs {position:relative;display:flex;gap:.25rem;border-bottom:1px solid var(--prism-line);}
-.prism-ui .prism-tab {border:0;border-radius:.375rem;background:transparent;color:var(--prism-muted);font:inherit;padding:.625rem .75rem;min-height:2.75rem;cursor:pointer;}
-.prism-ui .prism-tab[aria-selected='true'] {color:var(--prism-ink);font-weight:500;}
-.prism-ui .prism-indicator {position:absolute;bottom:-1px;left:0;height:2px;border-radius:999px;background:var(--prism-spectrum);background-size:150% 100%;pointer-events:none;transition:transform var(--prism-tab-time) cubic-bezier(.22,1,.36,1),width var(--prism-tab-time) cubic-bezier(.22,1,.36,1);}
-/* Loader: fixed conic color wheel, moving angular mask. Never rotate the gradient. */
-.prism-ui .prism-spinner {position:relative;display:inline-block;flex:none;width:var(--prism-loader-size);height:var(--prism-loader-size);}
-.prism-ui .prism-spinner::before {content:'';position:absolute;inset:0;border:var(--prism-loader-thickness) solid var(--prism-line);border-radius:50%;}
-.prism-ui .prism-spinner::after {content:'';position:absolute;inset:0;border-radius:50%;background:var(--prism-wheel);-webkit-mask-image:radial-gradient(farthest-side,transparent calc(100% - var(--prism-loader-thickness)),#000 0),conic-gradient(from var(--prism-loader-angle),#000 0deg var(--prism-loader-arc),transparent var(--prism-loader-arc));-webkit-mask-composite:source-in;mask-image:radial-gradient(farthest-side,transparent calc(100% - var(--prism-loader-thickness)),#000 0),conic-gradient(from var(--prism-loader-angle),#000 0deg var(--prism-loader-arc),transparent var(--prism-loader-arc));mask-composite:intersect;animation:prism-orbit 1200ms linear infinite;}
-@keyframes prism-orbit {to {--prism-loader-angle:360deg;}}
-/* Success is an actual state, not evidence inferred from a click. */
-.prism-ui .prism-save-complete::after {opacity:.55;}
-.prism-ui .prism-prism-check {color:var(--prism-muted);font-size:1.125rem;line-height:1;transition:color var(--prism-fade);}
-.prism-ui .prism-save-complete .prism-prism-check {background:var(--prism-spectrum);background-clip:text;-webkit-background-clip:text;color:transparent;}
-.prism-ui .prism-save-done {color:var(--prism-muted);background:var(--prism-hover);}
-.prism-ui .prism-shimmer::before,.prism-ui .prism-shimmer::after,.prism-ui .prism-indicator.prism-shimmer {animation:prism-shimmer var(--prism-shimmer) ease-in-out;}
-@keyframes prism-shimmer {0%,100% {background-position:0% 50%;filter:brightness(1);}45% {background-position:100% 50%;filter:brightness(1.2) saturate(1.15);}}
-.prism-ui .prism-icon-pulse {animation:prism-icon-pulse 1200ms ease-in-out;}
-@keyframes prism-icon-pulse {0%,100% {color:var(--prism-ink);}35% {color:#fff;}}
-.prism-ui .prism-button-primary .prism-icon-pulse {animation:prism-primary-icon-pulse 1200ms ease-in-out;}
-@keyframes prism-primary-icon-pulse {0%,100% {opacity:1;}35% {opacity:.55;}}
-/* Heading play is decorative; a native button lets touch/keyboard replay it. */
-.prism-ui .prism-word {display:inline-block;appearance:none;border:0;padding:0;margin:0;background-color:transparent;background-image:var(--prism-text-spectrum);background-size:220% 100%;background-position:35% 50%;background-clip:text;-webkit-background-clip:text;color:transparent;font:inherit;letter-spacing:inherit;text-align:inherit;cursor:pointer;}
-.prism-ui .prism-word.prism-word-play {animation:prism-word-enter 2800ms ease-in-out both;}
-.prism-ui .prism-word.prism-word-replay {animation:prism-word-replay 1900ms ease-in-out both;}
-@keyframes prism-word-enter {from {background-position:0% 50%;}to {background-position:35% 50%;}}
-@keyframes prism-word-replay {0% {background-size:280% 100%;background-position:0% 50%;}28% {background-size:220% 100%;background-position:94% 50%;}55% {background-size:270% 100%;background-position:18% 50%;}78% {background-size:190% 100%;background-position:88% 50%;}100% {background-size:220% 100%;background-position:35% 50%;}}
-@media(prefers-reduced-motion:reduce) {.prism-ui *, .prism-ui *::before,.prism-ui *::after {animation:none!important;transition:none!important;}}
-@media(prefers-reduced-transparency:reduce) {.prism-ui {--prism-surface:var(--prism-bg);} .prism-ui .prism-surface {backdrop-filter:none;-webkit-backdrop-filter:none;}}
-@media(forced-colors:active) {
-  .prism-ui .prism-button[aria-pressed='true'] {border-color:Highlight;}
-  .prism-ui .prism-button::before,.prism-ui .prism-button::after {display:none;}
-  .prism-ui .prism-tab[aria-selected='true'] {border-bottom:2px solid Highlight;}
-  .prism-ui .prism-word {background:none;color:CanvasText;}
-  .prism-ui a.prism-link {background:none;color:LinkText;text-decoration:underline;text-decoration-color:LinkText;}
-  .prism-ui a.prism-link [data-prism-link-icon] {background:none;color:LinkText;}
-  .prism-ui .prism-spinner::before {border-color:CanvasText;}
-  .prism-ui .prism-spinner::after {background:Highlight;}
-  .prism-ui .prism-prism-check {background:none;color:CanvasText;}
-}
-
-/* Older masking engines receive a neutral static loading ring. */
-@supports not (mask-composite: intersect) {
- .prism-ui .prism-spinner::after {animation:none;background:none;mask:none;-webkit-mask:none;border:var(--prism-loader-thickness) solid transparent;border-top-color:var(--prism-focus);}
-}
-</style><style>body {margin:0;background:#f6f7f9;}
-.prism-ui {padding:.75rem;} .prism-board {padding:1.75rem;border-radius:1.75rem;background:var(--prism-bg);}
-.prism-head {display:flex;gap:1rem;justify-content:space-between;align-items:center;flex-wrap:wrap;} .prism-theme {display:flex;gap:.25rem;border:1px solid var(--prism-line);padding:.25rem;border-radius:999px;}
-.prism-theme button {font:inherit;border:0;border-radius:999px;padding:.5rem .75rem;background:transparent;color:var(--prism-muted);cursor:pointer;}
-.prism-theme button[aria-pressed=true] {background:var(--prism-hover);color:var(--prism-ink);}
-.prism-grid {display:grid;grid-template-columns:1fr 1fr;gap:1.75rem 1.875rem;margin-top:1.875rem;}
-.prism-row {display:flex;gap:.625rem;align-items:center;flex-wrap:wrap;} .prism-label:not(label),.prism-state-label {display:block;color:var(--prism-muted);font-size:.875rem;font-weight:500;margin:0 0 .75rem;}
-.prism-tab-text,.prism-help,.prism-feedback,.prism-tag,.prism-type-caption {color:var(--prism-muted);font-size:.8rem;}
-.prism-input-label {display:block;color:var(--prism-ink);font-weight:500;margin-bottom:.4375rem;}
-.prism-card {position:relative;background:var(--prism-surface);padding:1.25rem;border:1px solid var(--prism-line);border-radius:1.375rem;}
-.prism-card h3 {margin:.625rem 0 .375rem;} .prism-card p {color:var(--prism-muted);margin:0 0 1.125rem;}
-.prism-card-selected::before {content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:var(--prism-spectrum);pointer-events:none;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;}
-.prism-switch-row {display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:3rem;margin-top:1.625rem;padding-top:.875rem;border-top:1px solid var(--prism-line);}
-.prism-catalog {margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--prism-line);} .prism-catalog-title {margin-bottom:1.125rem;}
-.prism-state-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.375rem 1rem;} .prism-state {min-width:0;}
-.prism-demo-hover {background:var(--prism-hover)!important;} .prism-demo-pressed {background:var(--prism-pressed)!important;}
-.prism-demo-focus {outline:2px solid var(--prism-focus);outline-offset:4px;} .prism-demo-feedback::before {opacity:1!important;} .prism-demo-feedback::after {opacity:.18!important;}
-.prism-button.prism-demo-loading {color:var(--prism-muted);} .prism-help {margin:.4375rem 0 0;} .prism-help.prism-error {color:var(--prism-error);}
-.prism-save-demo-row {display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;margin-top:1.5rem;padding-top:1.125rem;border-top:1px solid var(--prism-line);}
-.prism-type-stack {display:grid;gap:1.375rem;} .prism-type-example {display:grid;grid-template-columns:7rem minmax(0,1fr);gap:.875rem;align-items:baseline;} .prism-type-example p {margin:0;}
-.prism-type-body {font-size:clamp(.875rem,.84rem + .15vw,1rem);} .prism-type-small {font-size:.8rem;color:var(--prism-muted);}
-.prism-button [data-prism-icon] {display:inline-block;line-height:1;} #prism-select {min-width:7.5rem;}
-.prism-button[aria-pressed=false] .prism-check {visibility:hidden;}
-.prism-button-icon[aria-pressed=true]::after,#prism-like[aria-pressed=true]::after {opacity:.18;}
-.prism-button-icon {min-width:2.75rem;padding-inline:.8125rem;}
-@media(max-width:40rem) {.prism-state-grid {grid-template-columns:1fr 1fr;}}
-@media(max-width:34rem) {.prism-grid {grid-template-columns:1fr;}.prism-board {padding:1.375rem 1.125rem;}.prism-type-example {grid-template-columns:1fr;gap:.3125rem;}}
-@media(max-width:23rem) {.prism-state-grid {grid-template-columns:1fr;}}
-</style></head><body>
+<html lang="ja">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Flat Prism UI Practice — UI State Catalog</title>
+ <link rel="stylesheet" href="./prism-ui.css">
+ <link rel="stylesheet" href="./preview.css">
+</head>
+<body>
 <div id="prism-ui" data-theme="light" class="prism-ui">
  <div class="prism-board">
-  <div class="prism-head"><h2>Flat Prism UI Practice</h2><div class="prism-theme" role="group" aria-label="テーマ"><button type="button" class="cursor-interaction" data-theme-choice="light" aria-pressed="true">Light</button><button type="button" class="cursor-interaction" data-theme-choice="dark" aria-pressed="false">Dark</button></div></div>
+  <div class="prism-head">
+   <h2>Flat Prism UI Practice</h2>
+   <div class="prism-theme" role="group" aria-label="テーマ">
+    <button type="button" class="cursor-interaction" data-theme-choice="light" aria-pressed="true">Light</button>
+    <button type="button" class="cursor-interaction" data-theme-choice="dark" aria-pressed="false">Dark</button>
+   </div>
+  </div>
   <div class="prism-grid">
-   <section><h3 class="prism-label">BUTTON / 主操作と通常操作</h3><div class="prism-row"><button type="button" class="prism-button prism-button-primary cursor-interaction" data-action="見本を見る">見本を見る <span data-prism-icon aria-hidden="true">↗</span></button><button type="button" class="prism-button cursor-interaction" data-action="詳しく見る">詳しく見る</button></div><div class="prism-row" style="margin-top:10px"><button type="button" class="prism-button prism-button-ghost cursor-interaction" data-action="もっと見る">もっと見る <span data-prism-icon aria-hidden="true">→</span></button><button type="button" class="prism-button" disabled>準備中</button></div></section>
-   <section><h3 class="prism-label">BUTTON / 選択・解除</h3><div class="prism-row"><button type="button" class="prism-button cursor-interaction" aria-pressed="true" id="prism-select">選択 <span class="prism-check"><span data-prism-icon aria-hidden="true">✓</span></span></button><button type="button" class="prism-button prism-button-icon cursor-interaction" aria-label="お気に入り" aria-pressed="false" id="prism-like"><span data-prism-icon aria-hidden="true"><span data-prism-icon-off>♡</span><span data-prism-icon-on>♥</span></span></button></div></section>
-   <section><h3 class="prism-label">TAB / 表示中のカテゴリ</h3><div class="prism-tabs" role="tablist" aria-label="見本の種類"><button type="button" class="prism-tab cursor-interaction" id="prism-all" role="tab" aria-selected="true" aria-controls="prism-panel">すべて</button><button type="button" class="prism-tab cursor-interaction" id="prism-design" role="tab" aria-selected="false" aria-controls="prism-panel" tabindex="-1">UI / UX</button><button type="button" class="prism-tab cursor-interaction" id="prism-graphic" role="tab" aria-selected="false" aria-controls="prism-panel" tabindex="-1">Graphic</button><span class="prism-indicator" aria-hidden="true"></span></div><p class="prism-tab-text" id="prism-panel" role="tabpanel" aria-labelledby="prism-all">すべての見本</p></section>
-   <section><h3 class="prism-label">INPUT / 入力先</h3><label class="prism-input-label" for="prism-name">お名前</label><input class="prism-input" id="prism-name" placeholder="山田 花子" autocomplete="off"></section>
-   <section><h3 class="prism-label">CARD / 通常</h3><article class="prism-card" id="prism-component-study"><span class="prism-tag">UI / UX · RESEARCH</span><h3>Component Study</h3><p>基本部品の読みやすさと操作感を試す。</p><button type="button" class="prism-button prism-button-ghost cursor-interaction" data-action="Component Study">見本を見る <span data-prism-icon aria-hidden="true">↗</span></button></article></section>
-   <section><h3 class="prism-label">CARD / 選択中</h3><article class="prism-card prism-card-selected"><span class="prism-tag">SELECTED · COLOR STUDY</span><h3>Color Study</h3><p>色と余白の組み合わせを試す。</p><button type="button" class="prism-button prism-button-ghost cursor-interaction" data-action="Color Study">見本を見る <span data-prism-icon aria-hidden="true">↗</span></button></article></section>
+   <section>
+    <h3 class="prism-label">BUTTON / 主操作と通常操作</h3>
+    <div class="prism-row">
+     <button type="button" class="prism-button prism-button-primary cursor-interaction" data-action="見本を見る">見本を見る <span data-prism-icon aria-hidden="true">↗</span></button>
+     <button type="button" class="prism-button cursor-interaction" data-action="詳しく見る">詳しく見る</button>
+    </div>
+    <div class="prism-row prism-row-spaced">
+     <button type="button" class="prism-button prism-button-ghost cursor-interaction" data-action="もっと見る">もっと見る <span data-prism-icon aria-hidden="true">→</span></button>
+     <button type="button" class="prism-button" disabled>準備中</button>
+    </div>
+   </section>
+   <section>
+    <h3 class="prism-label">BUTTON / 選択・解除</h3>
+    <div class="prism-row">
+     <button type="button" class="prism-button cursor-interaction" aria-pressed="true" id="prism-select">選択 <span class="prism-check"><span data-prism-icon aria-hidden="true">✓</span></span></button>
+     <button type="button" class="prism-button prism-button-icon cursor-interaction" aria-label="お気に入り" aria-pressed="false" id="prism-like"><span data-prism-icon aria-hidden="true"><span data-prism-icon-off>♡</span><span data-prism-icon-on>♥</span></span></button>
+    </div>
+   </section>
+   <section>
+    <h3 class="prism-label">TAB / 表示中のカテゴリ</h3>
+    <div class="prism-tabs" role="tablist" aria-label="見本の種類">
+     <button type="button" class="prism-tab cursor-interaction" id="prism-all" role="tab" aria-selected="true" aria-controls="prism-panel">すべて</button>
+     <button type="button" class="prism-tab cursor-interaction" id="prism-design" role="tab" aria-selected="false" aria-controls="prism-panel" tabindex="-1">UI / UX</button>
+     <button type="button" class="prism-tab cursor-interaction" id="prism-graphic" role="tab" aria-selected="false" aria-controls="prism-panel" tabindex="-1">Graphic</button>
+     <span class="prism-indicator" aria-hidden="true"></span>
+    </div>
+    <p class="prism-tab-text" id="prism-panel" role="tabpanel" aria-labelledby="prism-all">すべての見本</p>
+   </section>
+   <section>
+    <h3 class="prism-label">INPUT / 入力先</h3>
+    <label class="prism-input-label" for="prism-name">お名前</label>
+    <input class="prism-input" id="prism-name" placeholder="山田 花子" autocomplete="off">
+   </section>
+   <section>
+    <h3 class="prism-label">CARD / 通常</h3>
+    <article class="prism-card" id="prism-component-study">
+     <span class="prism-tag">UI / UX · RESEARCH</span><h3>Component Study</h3>
+     <p>基本部品の読みやすさと操作感を試す。</p>
+     <button type="button" class="prism-button prism-button-ghost cursor-interaction" data-action="Component Study">見本を見る <span data-prism-icon aria-hidden="true">↗</span></button>
+    </article>
+   </section>
+   <section>
+    <h3 class="prism-label">CARD / 選択中</h3>
+    <article class="prism-card prism-card-selected">
+     <span class="prism-tag">SELECTED · COLOR STUDY</span><h3>Color Study</h3>
+     <p>色と余白の組み合わせを試す。</p>
+     <button type="button" class="prism-button prism-button-ghost cursor-interaction" data-action="Color Study">見本を見る <span data-prism-icon aria-hidden="true">↗</span></button>
+    </article>
+   </section>
   </div>
   <label class="prism-switch-row" for="prism-notice"><span>新しい見本のお知らせ</span><input type="checkbox" class="prism-switch cursor-interaction" id="prism-notice" checked></label>
   <p class="prism-feedback" id="prism-feedback" aria-live="polite">上の操作例はタップできます。下は各状態の見本です。</p>
@@ -196,7 +81,7 @@
     <div class="prism-state"><span class="prism-state-label">無効・操作不可</span><button type="button" class="prism-button" disabled>詳しく見る</button><p class="prism-help">公開準備中</p></div>
     <div class="prism-state"><span class="prism-state-label">処理中・再操作不可</span><button type="button" class="prism-button prism-demo-loading" aria-busy="true" aria-disabled="true"><span class="prism-spinner" aria-hidden="true"></span>保存中…</button></div>
     <div class="prism-state"><span class="prism-state-label">完了直後</span><button type="button" class="prism-button prism-save-complete" aria-disabled="true"><span class="prism-prism-check" aria-hidden="true">✓</span>保存しました</button></div>
-    <div class="prism-state"><span class="prism-state-label">失敗・再試行可能</span><button type="button" class="prism-button cursor-interaction" data-action="再試行">再試行 <span data-prism-icon aria-hidden="true">↻</span></button><p class="prism-help prism-error" style="color:light-dark(#a32f42,#f29aac)">保存できませんでした</p></div>
+    <div class="prism-state"><span class="prism-state-label">失敗・再試行可能</span><button type="button" class="prism-button cursor-interaction" data-action="再試行">再試行 <span data-prism-icon aria-hidden="true">↻</span></button><p class="prism-help prism-error">保存できませんでした</p></div>
    </div>
    <div class="prism-save-demo-row"><button type="button" class="prism-button cursor-interaction" id="prism-save-demo">保存する</button><span class="prism-help" id="prism-save-status" aria-live="polite">保存の動きを試す</span></div>
   </section>
@@ -221,7 +106,7 @@
    <div class="prism-state-grid">
     <div class="prism-state"><label class="prism-state-label" for="prism-input-empty">未入力</label><input class="prism-input" id="prism-input-empty" placeholder="お名前"></div>
     <div class="prism-state"><label class="prism-state-label" for="prism-input-filled">入力済み</label><input class="prism-input" id="prism-input-filled" value="山田 花子"></div>
-    <div class="prism-state"><label class="prism-state-label" for="prism-input-focus">フォーカスの見本</label><input class="prism-input" id="prism-input-focus" value="山田 花子" style="border-color:var(--prism-focus)"></div>
+    <div class="prism-state"><label class="prism-state-label" for="prism-input-focus">フォーカスの見本</label><input class="prism-input prism-demo-input-focus" id="prism-input-focus" value="山田 花子"></div>
     <div class="prism-state"><label class="prism-state-label" for="prism-input-error">入力エラー</label><input class="prism-input" id="prism-input-error" value="user@" aria-invalid="true" aria-describedby="prism-input-error-help"><p class="prism-help prism-error" id="prism-input-error-help">メールアドレスを確認してください</p></div>
     <div class="prism-state"><label class="prism-state-label" for="prism-input-disabled">無効</label><input class="prism-input" id="prism-input-disabled" placeholder="現在入力できません" disabled></div>
     <div class="prism-state"><label class="prism-state-label" for="prism-input-readonly">読み取り専用</label><input class="prism-input" id="prism-input-readonly" value="example.com" readonly></div>
@@ -243,157 +128,7 @@
  </div>
 </div>
 
-<script>
-/* Flat Prism UI Practice v1.0. No dependencies. Business logic remains with the site. */
-(function (global) {
-  'use strict';
-  const instances = new WeakMap();
-  const timers = new WeakMap();
-  const reduced = () => global.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  function pulseIcons(element) {
-    if (reduced()) return;
-    element.querySelectorAll('[data-prism-icon],svg').forEach(icon => {
-      icon.classList.remove('prism-icon-pulse'); void icon.getBoundingClientRect();
-      icon.classList.add('prism-icon-pulse');
-    });
-  }
-  function shimmer(element) {
-    pulseIcons(element);
-    if (reduced()) return;
-    element.classList.remove('prism-shimmer'); void element.offsetWidth;
-    element.classList.add('prism-shimmer');
-  }
-  function accept(element) {
-    if (element.disabled || element.getAttribute('aria-disabled') === 'true') return;
-    clearTimeout(timers.get(element));
-    element.classList.add('prism-flash'); shimmer(element);
-    timers.set(element, setTimeout(() => element.classList.remove('prism-flash'), 1300));
-  }
-  function setTheme(root, theme) {
-    if (!['light', 'dark'].includes(theme)) throw new TypeError('theme must be light or dark');
-    root.dataset.theme = theme;
-    root.querySelectorAll('[data-prism-theme]').forEach(button => {
-      button.setAttribute('aria-pressed', String(button.dataset.prismTheme === theme));
-    });
-  }
-  function init(root) {
-    if (!root || !root.classList.contains('prism-ui')) throw new TypeError('Pass a .prism-ui element');
-    if (instances.has(root)) return instances.get(root);
-    const abort = new AbortController(); const cleanups = []; const observedWords = [];
-    root.addEventListener('click', event => {
-      const button = event.target.closest('button,a.prism-button');
-      if (!button || !root.contains(button)) return;
-      if (button.disabled || button.getAttribute('aria-disabled') === 'true') {
-        event.preventDefault(); event.stopImmediatePropagation(); return;
-      }
-      if (button.hasAttribute('data-prism-theme')) { setTheme(root, button.dataset.prismTheme); return; }
-      if (button.matches('[data-prism-toggle]')) {
-        const selected = button.getAttribute('aria-pressed') !== 'true';
-        button.setAttribute('aria-pressed', String(selected));
-        if (selected) shimmer(button); else {button.classList.remove('prism-shimmer'); pulseIcons(button);}
-        button.dispatchEvent(new CustomEvent('prism:change', {bubbles:true, detail:{selected}}));
-      } else if (button.hasAttribute('data-prism-action')) accept(button);
-      if (button.classList.contains('prism-word')) {
-        if (reduced()) return;
-        button.classList.remove('prism-word-play','prism-word-replay'); void button.offsetWidth;
-        button.classList.add('prism-word-play','prism-word-replay');
-      }
-    }, {signal:abort.signal});
-    root.addEventListener('change', event => {
-      if (event.target.matches('.prism-switch') && event.target.checked) shimmer(event.target);
-    }, {signal:abort.signal});
-    root.querySelectorAll('.prism-tabs[role="tablist"]').forEach(tablist => {
-      const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
-      if (!tabs.length) return;
-      let indicator = tablist.querySelector('.prism-indicator');
-      if (!indicator) {indicator=document.createElement('span');indicator.className='prism-indicator';indicator.setAttribute('aria-hidden','true');tablist.append(indicator);}
-      function position() {
-        const selected=tabs.find(tab => tab.getAttribute('aria-selected') === 'true');
-        if (!selected) return;
-        const pad=parseFloat(getComputedStyle(selected).paddingLeft) || 0;
-        indicator.style.width=Math.max(0,selected.offsetWidth-pad*2)+'px';
-        indicator.style.transform='translateX('+(selected.offsetLeft+pad)+'px)';
-      }
-      function select(tab, animate) {
-        tabs.forEach(item => {
-          const active=item===tab; item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;
-          const panel=document.getElementById(item.getAttribute('aria-controls'));
-          if (panel && root.contains(panel)) panel.hidden=!active;
-        });
-        position(); if (animate) shimmer(indicator);
-        tablist.dispatchEvent(new CustomEvent('prism:tabchange',{bubbles:true,detail:{tabId:tab.id}}));
-      }
-      select(tabs.find(tab => tab.getAttribute('aria-selected') === 'true') || tabs[0],false);
-      tabs.forEach(tab=>tab.addEventListener('click',()=>select(tab,true),{signal:abort.signal}));
-      tablist.addEventListener('keydown',event=>{
-        const index=tabs.indexOf(document.activeElement);if(index<0)return;
-        let next;
-        if(event.key==='ArrowRight')next=(index+1)%tabs.length;
-        else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;
-        else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else return;
-        event.preventDefault();tabs[next].focus();select(tabs[next],true);
-      },{signal:abort.signal});
-      const resize=new ResizeObserver(position);resize.observe(tablist);cleanups.push(()=>resize.disconnect());
-    });
-    root.querySelectorAll('.prism-word').forEach(word=>observedWords.push(word));
-    if ('IntersectionObserver' in global && !reduced()) {
-      const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
-        if(entry.isIntersecting){entry.target.classList.add('prism-word-play');observer.unobserve(entry.target);}
-      }),{threshold:.3});observedWords.forEach(word=>observer.observe(word));cleanups.push(()=>observer.disconnect());
-    }
-    const api={destroy(){abort.abort();cleanups.forEach(fn=>fn());root.querySelectorAll('.prism-button').forEach(button=>{clearTimeout(timers.get(button));button.classList.remove('prism-flash');});instances.delete(root);}};
-    instances.set(root,api);return api;
-  }
-  /* Await the site's real operation. A resolved promise means success; failures must reject.
-     statusElement should be a dedicated aria-live region outside the button. */
-  async function run(button, operation, options={}) {
-    if(button.disabled || button.getAttribute('aria-disabled')==='true')return;
-    if(typeof operation!=='function')throw new TypeError('operation must be an async function');
-    const status=options.statusElement;
-    const idleLabel=options.idleLabel || button.textContent.trim();
-    clearTimeout(timers.get(button));button.classList.remove('prism-flash','prism-shimmer','prism-save-complete','prism-save-done');
-    button.setAttribute('aria-busy','true');button.setAttribute('aria-disabled','true');
-    button.replaceChildren();const spinner=document.createElement('span');spinner.className='prism-spinner';spinner.setAttribute('aria-hidden','true');button.append(spinner,document.createTextNode(options.pendingLabel || '保存中…'));
-    if(status){status.classList.remove('prism-error');status.textContent=options.pendingLabel || '保存中';}
-    try {
-      const result=await operation();
-      button.setAttribute('aria-busy','false');button.replaceChildren();
-      const check=document.createElement('span');check.className='prism-prism-check';check.setAttribute('aria-hidden','true');check.textContent='✓';
-      button.append(check,document.createTextNode(options.successLabel || '保存しました'));
-      button.classList.add('prism-save-complete');shimmer(button);
-      if(status)status.textContent=options.successLabel || '保存が完了しました';
-      timers.set(button,setTimeout(()=>{
-        button.classList.remove('prism-save-complete','prism-shimmer');button.classList.add('prism-save-done');button.removeAttribute('aria-disabled');
-      }, options.completionDuration ?? 1400));
-      return result;
-    } catch(error) {
-      button.setAttribute('aria-busy','false');button.removeAttribute('aria-disabled');button.textContent=options.retryLabel || idleLabel;
-      if(status){status.textContent=options.errorLabel || '保存できませんでした。もう一度お試しください。';status.classList.add('prism-error');}
-      throw error;
-    } finally { if(button.getAttribute('aria-busy')==='false' && button.classList.contains('prism-save-complete')) status?.classList.remove('prism-error'); }
-  }
-  global.PrismUI=Object.freeze({init,setTheme,accept,shimmer,run});
-})(window);
-</script><script>
-(()=>{
- const root=document.getElementById('prism-ui'),feedback=root.querySelector('#prism-feedback');
- const word=root.querySelector('.prism-word');
- const wordObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){word.classList.add('prism-word-play');wordObserver.disconnect();}},{threshold:.3});wordObserver.observe(word);
- word.addEventListener('click',()=>{wordObserver.disconnect();word.classList.remove('prism-word-play','prism-word-replay');void word.offsetWidth;word.classList.add('prism-word-play','prism-word-replay');});
- const save=root.querySelector('#prism-save-demo'),saveStatus=root.querySelector('#prism-save-status');
- let saveTimers=[];
- save.addEventListener('click',()=>{if(save.getAttribute('aria-disabled')==='true')return;saveTimers.forEach(clearTimeout);saveTimers=[];save.classList.remove('prism-save-complete','prism-save-done','prism-shimmer');save.replaceChildren();const spinner=document.createElement('span');spinner.className='prism-spinner';spinner.setAttribute('aria-hidden','true');save.append(spinner,document.createTextNode('保存中…'));save.setAttribute('aria-busy','true');save.setAttribute('aria-disabled','true');saveStatus.textContent='保存中';saveTimers.push(setTimeout(()=>{save.setAttribute('aria-busy','false');save.classList.add('prism-save-complete');save.replaceChildren();const check=document.createElement('span');check.className='prism-prism-check';check.setAttribute('aria-hidden','true');check.textContent='✓';save.append(check,document.createTextNode('保存しました'));saveStatus.textContent='保存が完了しました';shimmer(save);saveTimers.push(setTimeout(()=>{save.classList.remove('prism-save-complete','prism-shimmer');save.classList.add('prism-save-done');save.removeAttribute('aria-disabled');saveStatus.textContent='完了・もう一度押すと再生';},1400));},1700));});
- function pulseIcons(el){el.querySelectorAll('svg,[data-prism-icon]').forEach(icon=>{icon.classList.remove('prism-icon-pulse');void icon.getBoundingClientRect();icon.classList.add('prism-icon-pulse');});}
- function shimmer(el){el.classList.remove('prism-shimmer');void el.offsetWidth;el.classList.add('prism-shimmer');pulseIcons(el);}
- root.querySelectorAll('[data-theme-choice]').forEach(button=>button.addEventListener('click',()=>{root.dataset.theme=button.dataset.themeChoice;root.querySelectorAll('[data-theme-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));}));
- root.querySelectorAll('.prism-button[data-action]').forEach(button=>button.addEventListener('click',()=>{feedback.textContent=button.dataset.action+'：操作を受け付けました';clearTimeout(button.prismTimer);button.classList.add('prism-flash');shimmer(button);button.prismTimer=setTimeout(()=>button.classList.remove('prism-flash'),1300);}));
- root.querySelectorAll('.prism-button[aria-pressed]').forEach(button=>button.addEventListener('click',()=>{const selected=button.getAttribute('aria-pressed')!=='true';button.setAttribute('aria-pressed',String(selected));if(selected)shimmer(button);else {button.classList.remove('prism-shimmer');pulseIcons(button);}feedback.textContent=(button.id==='prism-like'||button.classList.contains('prism-button-icon')?'お気に入り':'選択')+'：'+(selected?'オン':'オフ');}));
- const tablist=root.querySelector('.prism-tabs'),tabs=Array.from(tablist.querySelectorAll('.prism-tab')),indicator=tablist.querySelector('.prism-indicator'),panel=root.querySelector('#prism-panel');
- function move(){const selected=tabs.find(t=>t.getAttribute('aria-selected')==='true');indicator.style.width=(selected.offsetWidth-20)+'px';indicator.style.transform='translateX('+(selected.offsetLeft+10)+'px)';}
- function selectTab(tab){tabs.forEach(t=>{t.setAttribute('aria-selected',String(t===tab));t.tabIndex=t===tab?0:-1;});panel.setAttribute('aria-labelledby',tab.id);panel.textContent=tab.id==='prism-all'?'すべての見本':tab.textContent+'の見本';move();shimmer(indicator);}
- tabs.forEach(tab=>tab.addEventListener('click',()=>selectTab(tab)));
- tablist.addEventListener('keydown',e=>{const index=tabs.indexOf(document.activeElement);if(index<0)return;let next;if(e.key==='ArrowRight')next=(index+1)%tabs.length;else if(e.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();tabs[next].focus();selectTab(tabs[next]);});
- move();new ResizeObserver(move).observe(tablist);
- root.querySelector('#prism-notice').addEventListener('change',e=>{if(e.target.checked)shimmer(e.target);else e.target.classList.remove('prism-shimmer');feedback.textContent='お知らせ：'+(e.target.checked?'オン':'オフ');});
-})();
-</script></body></html>
+<script src="./prism-ui.js"></script>
+<script src="./preview.js"></script>
+</body>
+</html>
