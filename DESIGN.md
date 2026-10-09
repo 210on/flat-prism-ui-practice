@@ -27,6 +27,8 @@ Version 1.0 / 2026-10-08
 
 `preview.html`は同じフォルダの2つのCSSと2つのJSを相対パスで読み込む。フォルダごと保存すればネット接続やビルドなしで開ける。配布用の`prism-ui.css`と`prism-ui.js`が先、見本専用の`preview.css`と`preview.js`が後の順番にする。見本用JSは共通の操作反応に`PrismUI.accept()`と`PrismUI.shimmer()`を使う。見本のレイアウト・状態を固定するクラス・約1.7秒の模擬保存は見本専用。本番用JSの`run()`は模擬時間で成功させず、サイト側のPromiseが成功するまで待つ。
 
+公開プレビューのCSSを更新したら、`preview.html`のCSSリンクに付けた`?v=`の値を変更する。Pages側で旧CSSがキャッシュされていても、新しい見本を取得できるようにするため。公開URLの版を変える場合は`index.html`と`README.md`のリンクも合わせる。
+
 ## 3. 導入
 
 ```html
