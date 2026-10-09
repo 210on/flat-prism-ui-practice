@@ -11,13 +11,13 @@ body {margin:0;background:#f6f7f9;}
 .prism-input-label {display:block;color:var(--prism-ink);font-weight:500;margin-bottom:.4375rem;}
 .prism-card {position:relative;background:var(--prism-surface);padding:1.25rem;border:1px solid var(--prism-line);border-radius:1.375rem;}
 .prism-card h3 {margin:.625rem 0 .375rem;} .prism-card p {color:var(--prism-muted);margin:0 0 1.125rem;}
-.prism-card-selected::before {content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:var(--prism-spectrum);pointer-events:none;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;}
+.prism-card-selected::before {content:'';position:absolute;inset:-1px;border-radius:inherit;padding:var(--prism-border-width);background:conic-gradient(from var(--prism-border-angle),var(--prism-border-colors));pointer-events:none;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:prism-border-rotate 2400ms linear infinite;}
 .prism-switch-row {display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:3rem;margin-top:1.625rem;padding-top:.875rem;border-top:1px solid var(--prism-line);}
 .prism-catalog {margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--prism-line);} .prism-catalog-title {margin-bottom:1.125rem;}
 .prism-state-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.375rem 1rem;} .prism-state {min-width:0;}
 /* Fixed examples let all control states appear together in the catalog. */
 .prism-demo-hover {background:var(--prism-hover)!important;} .prism-demo-pressed {background:var(--prism-pressed)!important;}
-.prism-ui .prism-demo-hover::before {opacity:1;padding:2px;background-image:conic-gradient(from var(--prism-border-angle),var(--prism-border-colors));background-size:100% 100%;animation:prism-border-rotate 2400ms linear infinite;}
+.prism-ui .prism-demo-hover::before {opacity:1;padding:var(--prism-border-width);background-image:conic-gradient(from var(--prism-border-angle),var(--prism-border-colors));background-size:100% 100%;animation:prism-border-rotate 2400ms linear infinite;}
 .prism-demo-focus {outline:2px solid var(--prism-focus);outline-offset:4px;} .prism-demo-feedback::before {opacity:1!important;} .prism-demo-feedback::after {opacity:.18!important;}
 .prism-ui .prism-demo-input-focus {border-color:var(--prism-focus);}
 .prism-button.prism-demo-loading {color:var(--prism-muted);} .prism-help {margin:.4375rem 0 0;} .prism-help.prism-error {color:var(--prism-error);}
