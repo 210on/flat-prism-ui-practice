@@ -11,6 +11,7 @@
   --prism-primary-hover: #2c3745; --prism-primary-pressed: #121821;
   --prism-error: #a32f42; --prism-success: #28684e;
   --prism-spectrum: linear-gradient(110deg,#50bfbd,#6da6ed 18%,#9b83e4 36%,#d385c0 52%,#e99e8a 68%,#dcc879 84%,#83c4a8);
+  --prism-border-spectrum: repeating-linear-gradient(90deg,#50bfbd 0%,#6da6ed 9%,#9b83e4 18%,#d385c0 26%,#e99e8a 34%,#dcc879 42%,#83c4a8 47%,#50bfbd 50%);
   --prism-text-spectrum: linear-gradient(110deg,#1a8f92,#4779c1 22%,#875fbd 44%,#b55293 65%,#b86c45 83%,#578e69);
   --prism-link-spectrum: linear-gradient(110deg,#177b80,#365da7 22%,#7352a4 44%,#a03976 65%,#9c593a 83%,#487955);
   --prism-wheel: conic-gradient(#d385a4,#e5af7f 60deg,#9dc47d 120deg,#50bfbd 180deg,#6da6ed 240deg,#9b83e4 300deg,#d385a4);
@@ -28,6 +29,7 @@
   --prism-primary:#edf0f5; --prism-primary-ink:#14161a;
   --prism-primary-hover:#fff; --prism-primary-pressed:#d6dde7;
   --prism-spectrum:linear-gradient(110deg,#80e0d0,#92baff 18%,#b59af5 36%,#eda3d8 52%,#ffc1a4 68%,#ebdc96 84%,#9bddb4);
+  --prism-border-spectrum:repeating-linear-gradient(90deg,#80e0d0 0%,#92baff 9%,#b59af5 18%,#eda3d8 26%,#ffc1a4 34%,#ebdc96 42%,#9bddb4 47%,#80e0d0 50%);
   --prism-text-spectrum:linear-gradient(110deg,#8be6df,#b2caff 22%,#ccb4fb 44%,#f3b5df 65%,#f6c09f 83%,#b9ddb5);
   --prism-link-spectrum:var(--prism-text-spectrum);
 }
@@ -62,7 +64,7 @@
 .prism-ui .prism-button-primary:active:not(:disabled):not([aria-disabled='true']) {background:var(--prism-primary-pressed);}
 .prism-ui .prism-button::before {content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:var(--prism-spectrum);background-size:150% 100%;pointer-events:none;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity var(--prism-fade) ease;}
 .prism-ui .prism-button::after {content:'';position:absolute;inset:0;border-radius:inherit;background:var(--prism-spectrum);background-size:150% 100%;opacity:0;z-index:-1;pointer-events:none;transition:opacity var(--prism-fade) ease;}
-.prism-ui .prism-button:where(:hover):where(:not(:disabled):not([aria-disabled='true']))::before {opacity:1;animation:prism-shimmer var(--prism-shimmer) ease-in-out;}
+.prism-ui .prism-button:where(:hover):where(:not(:disabled):not([aria-disabled='true']))::before {opacity:1;padding:2px;background-image:var(--prism-border-spectrum);background-size:200% 100%;animation:prism-border-flow 2400ms linear infinite;}
 .prism-ui .prism-button:is([aria-pressed='true'],.prism-flash,.prism-save-complete)::before {opacity:1;}
 .prism-ui .prism-button.prism-flash::after {opacity:.18;}
 .prism-ui .prism-button-icon {min-width:2.75rem;padding-inline:.8125rem;}
@@ -72,7 +74,6 @@
 .prism-ui .prism-button-icon[aria-pressed='true'] [data-prism-icon-off] {display:none;}
 .prism-ui .prism-button-icon[aria-pressed='true'] [data-prism-icon-on] {display:inline;}
 .prism-ui .prism-button-ghost {border-color:transparent;background:transparent;padding-inline:.5rem;}
-.prism-ui .prism-button-ghost::before {content:none;}
 .prism-ui .prism-button-ghost.prism-flash {background:var(--prism-surface);}
 .prism-ui .prism-button:disabled {opacity:.58;cursor:default;}
 .prism-ui .prism-button[aria-disabled='true'] {cursor:default;}
@@ -114,6 +115,7 @@
 .prism-ui .prism-save-done {color:var(--prism-muted);background:var(--prism-hover);}
 .prism-ui .prism-shimmer::before,.prism-ui .prism-shimmer::after,.prism-ui .prism-indicator.prism-shimmer {animation:prism-shimmer var(--prism-shimmer) ease-in-out;}
 @keyframes prism-shimmer {0%,100% {background-position:0% 50%;filter:brightness(1);}45% {background-position:100% 50%;filter:brightness(1.2) saturate(1.15);}}
+@keyframes prism-border-flow {from {background-position:0% 50%;}to {background-position:100% 50%;}}
 .prism-ui .prism-icon-pulse {animation:prism-icon-pulse 1200ms ease-in-out;}
 @keyframes prism-icon-pulse {0%,100% {color:var(--prism-ink);}35% {color:#fff;}}
 .prism-ui .prism-button-primary .prism-icon-pulse {animation:prism-primary-icon-pulse 1200ms ease-in-out;}

@@ -17,7 +17,7 @@ body {margin:0;background:#f6f7f9;}
 .prism-state-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.375rem 1rem;} .prism-state {min-width:0;}
 /* Fixed examples let all control states appear together in the catalog. */
 .prism-demo-hover {background:var(--prism-hover)!important;} .prism-demo-pressed {background:var(--prism-pressed)!important;}
-.prism-ui .prism-demo-hover::before {opacity:1;}
+.prism-ui .prism-demo-hover::before {opacity:1;padding:2px;background-image:var(--prism-border-spectrum);background-size:200% 100%;animation:prism-border-flow 2400ms linear infinite;}
 .prism-demo-focus {outline:2px solid var(--prism-focus);outline-offset:4px;} .prism-demo-feedback::before {opacity:1!important;} .prism-demo-feedback::after {opacity:.18!important;}
 .prism-ui .prism-demo-input-focus {border-color:var(--prism-focus);}
 .prism-button.prism-demo-loading {color:var(--prism-muted);} .prism-help {margin:.4375rem 0 0;} .prism-help.prism-error {color:var(--prism-error);}
