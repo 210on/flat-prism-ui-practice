@@ -65,7 +65,7 @@
 .prism-ui .prism-button-primary:active:not(:disabled):not([aria-disabled='true']) {background:var(--prism-primary-pressed);}
 .prism-ui .prism-button::before {content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:var(--prism-spectrum);background-size:150% 100%;pointer-events:none;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity var(--prism-fade) ease;}
 .prism-ui .prism-button::after {content:'';position:absolute;inset:0;border-radius:inherit;background:var(--prism-spectrum);background-size:150% 100%;opacity:0;z-index:-1;pointer-events:none;transition:opacity var(--prism-fade) ease;}
-.prism-ui .prism-button:where(:hover):where(:not(:disabled):not([aria-disabled='true']))::before {opacity:1;padding:2px;background-image:conic-gradient(from var(--prism-border-angle),var(--prism-border-colors));background-size:100% 100%;animation:prism-border-rotate 2400ms linear infinite;}
+.prism-ui .prism-button:hover:not(:disabled):not([aria-disabled='true'])::before {opacity:1;padding:2px;background-image:conic-gradient(from var(--prism-border-angle),var(--prism-border-colors));background-size:100% 100%;animation:prism-border-rotate 2400ms linear infinite;}
 .prism-ui .prism-button:is([aria-pressed='true'],.prism-flash,.prism-save-complete)::before {opacity:1;}
 .prism-ui .prism-button.prism-flash::after {opacity:.18;}
 .prism-ui .prism-button-icon {min-width:2.75rem;padding-inline:.8125rem;}

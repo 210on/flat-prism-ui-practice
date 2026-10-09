@@ -1,14 +1,14 @@
 # Flat Prism UI Practice
 
-[![Flat Prism UI Practice のライトテーマのプレビュー](assets/preview-light.png)](https://210on.github.io/flat-prism-ui-practice/preview.html?v=hover-rotate-1)
+[![Flat Prism UI Practice のライトテーマのプレビュー](assets/preview-light.png)](https://210on.github.io/flat-prism-ui-practice/preview.html?v=hover-rotate-2)
 
-[ブラウザでプレビューを操作する](https://210on.github.io/flat-prism-ui-practice/preview.html?v=hover-rotate-1)
+[ブラウザでプレビューを操作する](https://210on.github.io/flat-prism-ui-practice/preview.html?v=hover-rotate-2)
 
 フラットな形と控えめなガラス感、操作に応えるプリズム色を組み合わせたUIの練習用キットです。ボタン、入力欄、タブ、文字スタイルなどの状態を、ライト・ダーク両テーマで確認できます。
 
 ## プレビュー
 
-[公開プレビュー](https://210on.github.io/flat-prism-ui-practice/preview.html?v=hover-rotate-1)で各部品を操作できます。`main`ブランチの更新はGitHub Pagesに反映されます。ローカルでは、リポジトリのファイルを同じフォルダに置き、`preview.html`をブラウザで開いてください。ビルドや外部ライブラリは不要です。表示される名前、ドメイン、カードは架空の見本です。ボタンの保存処理も見た目を確認するための模擬動作です。
+[公開プレビュー](https://210on.github.io/flat-prism-ui-practice/preview.html?v=hover-rotate-2)で各部品を操作できます。`main`ブランチの更新はGitHub Pagesに反映されます。ローカルでは、リポジトリのファイルを同じフォルダに置き、`preview.html`をブラウザで開いてください。ビルドや外部ライブラリは不要です。表示される名前、ドメイン、カードは架空の見本です。ボタンの保存処理も見た目を確認するための模擬動作です。
 
 ## ファイル
 
